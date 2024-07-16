@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 //This class contains the tests that we want to run against the home page. By creating an instance of HomePage,
-// we are able to interact with the elements that we have store in the HomePage class
+// we are able to interact with the elements that we have stored in the HomePage class
 public class HomePageTests {
     WebDriver driver;
     HomePage homePage;
@@ -35,6 +35,4 @@ public class HomePageTests {
         homePage.getShopNewYogaButton().click();
         assert driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/collections/yoga-new.html");
     }
-
-
 }
