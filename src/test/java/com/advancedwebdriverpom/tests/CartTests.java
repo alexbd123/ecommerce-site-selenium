@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import com.advancedwebdriverpom.pages.SignInPage;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class CartTests {
     WebDriver driver;
     HomePage homePage;
+    SignInPage signInPage;
     YogaCollectionPage yogaCollectionPage;
     CartPopup cartPopup;
     ItemPageActions cartActions;
@@ -27,6 +29,7 @@ public class CartTests {
         driver = new ChromeDriver();
         driver.get("https://magento.softwaretestingboard.com/");
         homePage = new HomePage(driver);
+        signInPage = new SignInPage(driver);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         // The following two lines of code sets the window position for a multi-monitor setup
         // (-1920 = monitor to left of main, 1920 = monitor to right of main). Can be commented out if not needed.
