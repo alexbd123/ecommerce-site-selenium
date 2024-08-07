@@ -13,11 +13,11 @@ public class SignInPage {
     WebElement forgotYourPasswordLink;
     WebElement createAnAccountButton;
 
-    String validEmail = "alexpjbd@gmail.com";
-    String validPassword = "pc63ajt_pzCDcD#";
-    String emailNotLinkedToAccount = "scoobydoo@whereareyou.com";
-    String invalidPassword = "scooby-snacks";
-    String invalidEmail = "googoo";
+    public String validEmail = "alexpjbd@gmail.com";
+    public String validPassword = "pc63ajt_pzCDcD#";
+    public String emailNotLinkedToAccount = "scoobydoo@whereareyou.com";
+    public String invalidPassword = "scooby-snacks";
+    public String invalidEmail = "googoo";
 
     public SignInPage(WebDriver driver) {
         this.driver = driver;
@@ -48,34 +48,4 @@ public class SignInPage {
         return createAnAccountButton;
     }
 
-    public void submitValidLogin() {
-        getEmailInput().sendKeys(validEmail);
-        getPasswordInput().sendKeys(validPassword);
-        getSignInButton().click();
-    }
-
-    public void submitInvalidLogin() {
-        getEmailInput().sendKeys(emailNotLinkedToAccount);
-        getPasswordInput().sendKeys(invalidPassword);
-        getSignInButton().click();
-    }
-
-    public void submitInvalidEmail() {
-        getEmailInput().sendKeys(invalidEmail);
-        getSignInButton().click();
-    }
-
-    public void onlySubmitPassword() {
-        getPasswordInput().sendKeys(invalidPassword);
-        getSignInButton().click();
-    }
-
-    public void onlySubmitValidEmail() {
-        getEmailInput().sendKeys(validEmail);
-        getSignInButton().click();
-    }
-
-    public void clickOnCreateAccountButton() {
-        getCreateAnAccountButton().click();
-    }
 }

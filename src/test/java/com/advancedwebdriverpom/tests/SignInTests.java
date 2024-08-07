@@ -1,6 +1,7 @@
 package com.advancedwebdriverpom.tests;
 
 
+import com.advancedwebdriverpom.actions.SignInPageActions;
 import com.advancedwebdriverpom.pages.SignInPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +18,14 @@ public class SignInTests {
 
     WebDriver driver;
     SignInPage signInPage;
+    SignInPageActions signInPageActions;
 
     @BeforeEach
     public void setup() {
         driver = new ChromeDriver();
         driver.get("https://magento.softwaretestingboard.com/customer/account/login/referer/aHR0cHM6Ly9tYWdlbnRvLnNvZnR3YXJldGVzdGluZ2JvYXJkLmNvbS8%2C/");
         signInPage = new SignInPage(driver);
+        signInPageActions = new SignInPageActions(driver);
     }
 
     @AfterEach
@@ -34,7 +37,7 @@ public class SignInTests {
     public void testSignInTakesUserToHomepage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        signInPage.submitValidLogin();
+        signInPageActions.submitValidLogin();
         wait.until(ExpectedConditions.urlToBe("https://magento.softwaretestingboard.com/"));
         assert driver.getCurrentUrl().equals("https://magento.softwaretestingboard.com/");
     }
@@ -43,7 +46,7 @@ public class SignInTests {
     public void testSuccessfulSignInDisplaysCorrectMessage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        signInPage.submitValidLogin();
+        signInPageActions.submitValidLogin();
         wait.until(ExpectedConditions.textToBe(By.className("greet"), "Welcome, Alex Berridge-Dunn!"));
         assert driver.findElement(By.className("greet")).getText().equals("Welcome, Alex Berridge-Dunn!");
     }
@@ -53,7 +56,7 @@ public class SignInTests {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         String expectedText = "The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.";
 
-        signInPage.submitInvalidLogin();
+        signInPageActions.submitInvalidLogin();
         wait.until(ExpectedConditions.textToBe(By.className("message-error"), expectedText));
         assert driver.findElement(By.className("message-error")).getText().equals(expectedText);
 
@@ -74,7 +77,7 @@ public class SignInTests {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String warningText = "Please enter a valid email address (Ex: johndoe@domain.com).";
 
-        signInPage.submitInvalidEmail();
+        signInPageActions.submitInvalidEmail();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#email-error")));
         WebElement warningTextElement = driver.findElement(By.cssSelector("#email-error"));
         assert warningTextElement.getText().equals(warningText);
@@ -85,7 +88,7 @@ public class SignInTests {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String warningText = "This is a required field.";
 
-        signInPage.onlySubmitPassword();
+        signInPageActions.onlySubmitPassword();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#email-error")));
         WebElement warningTextElement = driver.findElement(By.cssSelector("#email-error"));
         assert warningTextElement.getText().equals(warningText);
@@ -96,7 +99,7 @@ public class SignInTests {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         String warningText = "This is a required field.";
 
-        signInPage.onlySubmitValidEmail();
+        signInPageActions.onlySubmitValidEmail();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#pass-error")));
         WebElement warningTextElement = driver.findElement(By.cssSelector("#pass-error"));
         assert warningTextElement.getText().equals(warningText);
@@ -107,7 +110,7 @@ public class SignInTests {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         String expectedURL = "https://magento.softwaretestingboard.com/customer/account/create/";
 
-        signInPage.clickOnCreateAccountButton();
+        signInPageActions.clickOnCreateAccountButton();
         wait.until(ExpectedConditions.urlToBe(expectedURL));
         assert driver.getCurrentUrl().equals(expectedURL);
     }
